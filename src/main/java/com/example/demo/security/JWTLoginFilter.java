@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -29,13 +30,21 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         AccountCredentials credentials = new ObjectMapper()
                 .readValue(request.getInputStream(), AccountCredentials.class);
 
-        return getAuthenticationManager().authenticate(
+        Authentication auth = getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         credentials.getUsername(),
                         credentials.getPassword(),
                         Collections.emptyList()
                 )
         );
+
+        if (auth != null && auth.isAuthenticated()) {
+            System.out.println("NEW LOGIN");
+            User user = (User) auth.getPrincipal();
+            System.out.println("User: " + user.getUsername());
+        }
+
+        return auth;
     }
 
     @Override
