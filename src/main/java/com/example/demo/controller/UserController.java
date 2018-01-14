@@ -18,7 +18,7 @@ public class UserController {
     @RequestMapping("/me")
     @ResponseBody
     public User getUsers(Authentication auth) {
-        return userService.findUserByLogin(auth.getPrincipal().toString());
+        return userService.findUserByUsername(auth.getPrincipal().toString());
     }
 
 }
