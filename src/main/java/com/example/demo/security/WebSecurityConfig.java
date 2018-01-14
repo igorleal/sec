@@ -17,6 +17,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable().authorizeRequests()
                 .antMatchers("/home").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/h2/*").permitAll()
+                .antMatchers("/h2").permitAll()
+                .antMatchers("/h2/login").permitAll()
+                .antMatchers("/console/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
@@ -26,7 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // filtra outras requisições para verificar a presença do JWT no header
                 .addFilterBefore(new JWTAuthenticationFilter(),
-                        UsernamePasswordAuthenticationFilter.class);
+                        UsernamePasswordAuthenticationFilter.class)
+
+                .csrf().disable()
+
+                .headers().frameOptions().disable();
     }
 
     @Override
