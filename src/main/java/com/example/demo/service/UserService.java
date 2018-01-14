@@ -5,6 +5,8 @@ import com.example.demo.dao.UserDAO;
 import com.example.demo.entity.LoginHistory;
 import com.example.demo.entity.User;
 import com.example.demo.vo.UserRequestVO;
+import com.example.demo.vo.UserResponseVO;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +33,9 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User findById(Long id) {
-        return userDAO.findById(id);
+    public UserResponseVO findById(Long id) {
+        User user = userDAO.findById(id);
+        return new UserResponseVO(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName());
     }
 
     public void registerLogin(String username) {
@@ -48,7 +51,8 @@ public class UserService {
             throw new Exception("username already exists");
         }
         User user = new User();
-        user.setPassword(request.getPassword());
+        String encrypted = DigestUtils.sha1Hex(request.getPassword());
+        user.setPassword(encrypted);
         user.setFirstName(request.getFirstName().trim());
         user.setLastName(request.getLastName().trim());
         user.setUsername(request.getUsername().trim());

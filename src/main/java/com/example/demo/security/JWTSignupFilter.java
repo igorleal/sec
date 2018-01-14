@@ -34,10 +34,14 @@ public class JWTSignupFilter extends AbstractAuthenticationProcessingFilter {
         UserRequestVO userRequest = new ObjectMapper()
                 .readValue(request.getInputStream(), UserRequestVO.class);
 
+        com.example.demo.entity.User user = null;
         try {
-            com.example.demo.entity.User user = userService.signup(userRequest);
+            user = userService.signup(userRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            Authentication auth = getAuthenticationManager().authenticate(
+        Authentication auth = getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
                             user.getUsername(),
                             user.getPassword(),
@@ -46,10 +50,6 @@ public class JWTSignupFilter extends AbstractAuthenticationProcessingFilter {
             );
 
             return auth;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override

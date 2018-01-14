@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import com.example.demo.vo.UserResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
@@ -18,7 +19,7 @@ public class UserController {
 
     @GetMapping("/me")
     @ResponseBody
-    public User getLoggedUser(Authentication auth) {
+    public UserResponseVO getLoggedUser(Authentication auth) {
         return userService.findById(getUser(auth).getId());
     }
 

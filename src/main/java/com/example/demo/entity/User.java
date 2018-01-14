@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

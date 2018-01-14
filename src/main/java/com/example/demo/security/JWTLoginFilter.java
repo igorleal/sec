@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import com.example.demo.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Collections;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
@@ -39,7 +41,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         Authentication auth = getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         credentials.getUsername(),
-                        credentials.getPassword(),
+                        DigestUtils.sha1Hex(credentials.getPassword()),
                         Collections.emptyList()
                 )
         );
