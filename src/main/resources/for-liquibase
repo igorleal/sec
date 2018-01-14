@@ -25,5 +25,17 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `login_history`;
+CREATE TABLE `login_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `date` timestamp NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 INSERT INTO `role` VALUES (1,'USER');
+
+INSERT INTO `user` (active, username, last_name, name, password) VALUES (true, 'igor', 'Leal', 'Igor', 'password');
+
+INSERT INTO `user_role` VALUES (1, 1);
+
