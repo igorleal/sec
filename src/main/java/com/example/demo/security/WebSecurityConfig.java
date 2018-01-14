@@ -42,16 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/console/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
-
-                // filtra requisições de login
                 .addFilterBefore(new JWTLoginFilter("/login", authenticationManager(), userService),
                         UsernamePasswordAuthenticationFilter.class)
-
                 .addFilterBefore(new JWTSignupFilter("/signup", authenticationManager(), userService),
                         UsernamePasswordAuthenticationFilter.class)
-
-                // filtra outras requisições para verificar a presença do JWT no header
-                .addFilterBefore(new JWTAuthenticationFilter(),
+                .addFilterBefore(new JWTAuthenticationFilter(userService),
                         UsernamePasswordAuthenticationFilter.class)
 
                 .csrf().disable()

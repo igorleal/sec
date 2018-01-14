@@ -1,17 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.LoginHistory;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
-import com.example.demo.vo.UserRequestVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,16 +16,25 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/me")
+    @GetMapping("/me")
     @ResponseBody
-    public User getUsers(Authentication auth) {
-        return userService.findUserByUsername(auth.getPrincipal().toString());
+    public User getLoggedUser(Authentication auth) {
+        return userService.findById(getUser(auth).getId());
     }
 
-    @RequestMapping("/login/history")
+    @GetMapping("/login/history")
     @ResponseBody
-    public List<LoginHistory> getLoginHistory(Authentication auth) {
-        return userService.findLoginHistory(auth.getPrincipal().toString());
+    public List<Date> getLoginHistory(Authentication auth) {
+        return userService.findLoginHistory(getUser(auth));
+    }
+
+    @DeleteMapping("/login/history")
+    public void deleteLoginHistory(Authentication auth) {
+        userService.deleteLoginHistory(getUser(auth));
+    }
+
+    private User getUser(Authentication auth) {
+        return (User) auth.getPrincipal();
     }
 
 }

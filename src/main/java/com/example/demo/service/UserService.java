@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -24,14 +25,19 @@ public class UserService {
         return userDAO.findByUsername(username);
     }
 
-    public List<LoginHistory> findLoginHistory(String username) {
-        User user = findUserByUsername(username);
-        return loginHistoryDAO.findByUserId(user.getId());
+    public List<Date> findLoginHistory(User user) {
+        return loginHistoryDAO.findByUserIdOrderByDateDesc(user.getId())
+                .stream().map(LoginHistory::getDate)
+                .collect(Collectors.toList());
+    }
+
+    public User findById(Long id) {
+        return userDAO.findById(id);
     }
 
     public void registerLogin(String username) {
         LoginHistory loginHistory = new LoginHistory();
-        loginHistory.setUserId(findUserByUsername(username).getId());
+        loginHistory.setUser(findUserByUsername(username));
         loginHistory.setDate(new Date());
         loginHistoryDAO.save(loginHistory);
     }
@@ -49,5 +55,9 @@ public class UserService {
         user.setActive(true);
 
         return userDAO.save(user);
+    }
+
+    public void deleteLoginHistory(User user) {
+        loginHistoryDAO.delete(loginHistoryDAO.findByUserIdOrderByDateDesc(user.getId()));
     }
 }

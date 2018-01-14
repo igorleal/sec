@@ -10,6 +10,6 @@ import java.util.List;
 @Transactional
 public interface LoginHistoryDAO extends CrudRepository<LoginHistory, Long> {
 
-    List<LoginHistory> findByUserId(Long userId);
+    List<LoginHistory> findByUserIdOrderByDateDesc(Long userId);
 
 }

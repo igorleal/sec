@@ -57,7 +57,7 @@ public class JWTSignupFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain,
-            Authentication auth) {
+            Authentication auth) throws IOException {
 
         TokenAuthenticationService.addAuthentication(response, auth.getName());
     }

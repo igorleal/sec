@@ -13,7 +13,9 @@ public class LoginHistory {
     private long id;
 
     @NotNull
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @NotNull
     private Date date;
@@ -26,12 +28,12 @@ public class LoginHistory {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getDate() {
