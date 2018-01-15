@@ -1,16 +1,11 @@
 package com.example.demo.vo;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserRequestVO {
 
-    @NotEmpty
     private String username;
-    @NotEmpty
     private String password;
-    @NotEmpty
     private String firstName;
-    @NotEmpty
     private String lastName;
 
     public String getUsername() {

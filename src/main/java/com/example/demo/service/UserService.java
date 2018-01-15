@@ -8,6 +8,7 @@ import com.example.demo.exception.MySecException;
 import com.example.demo.vo.UserRequestVO;
 import com.example.demo.vo.UserResponseVO;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -48,9 +49,18 @@ public class UserService {
     }
 
     public User signup(UserRequestVO request) throws MySecException {
+
+        if (!isRquestValid(request)) {
+            throw new MySecException(HttpStatus.BAD_REQUEST, "All fields are required");
+        }
+
+        if (!isPasswordValid(request.getPassword())) {
+            throw new MySecException(HttpStatus.BAD_REQUEST, "Password invalid.");
+        }
+
         User existing = findUserByUsername(request.getUsername().trim());
         if (existing != null) {
-            throw new MySecException(HttpStatus.BAD_REQUEST, "username already exists");
+            throw new MySecException(HttpStatus.BAD_REQUEST, "Username already exists");
         }
         User user = new User();
         String encrypted = DigestUtils.sha1Hex(request.getPassword());
@@ -61,6 +71,18 @@ public class UserService {
         user.setActive(true);
 
         return userDAO.save(user);
+    }
+
+    /*
+        Password must contain at least eight characters and at least one number and letters
+     */
+    protected boolean isPasswordValid(String password) {
+        return password.matches("^(?=.*[0-9])(?=.*[A-z]).{8,}$");
+    }
+
+    protected boolean isRquestValid(UserRequestVO request) {
+        return request != null
+                && StringUtils.isNoneBlank(request.getUsername(), request.getPassword(), request.getFirstName(), request.getLastName());
     }
 
     public void deleteLoginHistory(User user) {
