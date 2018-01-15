@@ -4,10 +4,12 @@ import com.example.demo.dao.LoginHistoryDAO;
 import com.example.demo.dao.UserDAO;
 import com.example.demo.entity.LoginHistory;
 import com.example.demo.entity.User;
+import com.example.demo.exception.MySecException;
 import com.example.demo.vo.UserRequestVO;
 import com.example.demo.vo.UserResponseVO;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -45,10 +47,10 @@ public class UserService {
         loginHistoryDAO.save(loginHistory);
     }
 
-    public User signup(UserRequestVO request) throws Exception {
+    public User signup(UserRequestVO request) throws MySecException {
         User existing = findUserByUsername(request.getUsername().trim());
         if (existing != null) {
-            throw new Exception("username already exists");
+            throw new MySecException(HttpStatus.BAD_REQUEST, "username already exists");
         }
         User user = new User();
         String encrypted = DigestUtils.sha1Hex(request.getPassword());
