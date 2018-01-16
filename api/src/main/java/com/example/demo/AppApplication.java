@@ -19,8 +19,8 @@ public class AppApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-			    // This is not safety at all. Valid only for development purpose
-				registry.addMapping("/*").allowedOrigins("*");
+			    // This is not safe at all. Valid only for development purpose
+				registry.addMapping("/*").allowedOrigins("*").allowedHeaders("authorization", "content-type").allowedMethods("GET", "POST", "DELETE");
 			}
 		};
 	}

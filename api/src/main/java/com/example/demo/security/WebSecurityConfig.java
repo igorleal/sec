@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2/login").permitAll()
                 .antMatchers("/console/*").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/login/history").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTLoginFilter("/login", authenticationManager(), userService),

@@ -23,7 +23,7 @@ dist/
 nbdist/
 .nb-gradle/
 
-node-modules
-package-lock.json
+app/ode-modules
+app/package-lock.json
 
 .DS_store
