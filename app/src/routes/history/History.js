@@ -2,14 +2,25 @@ import React, { Component } from 'react';
 import './History.css';
 import axios from 'axios';
 import Timestamp from 'react-timestamp';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom'
 
 class History extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: []
+      history: [],
+      redirect: !localStorage.getItem("token")
     }
-    this.loadData();
+
+    if (!this.state.redirect) {
+      this.loadData();
+    }
   }
   handleSuccess(response) {
       this.setState({ history: response.data })
@@ -60,14 +71,17 @@ class History extends Component {
         </div>
     ) : "No login history"
 
-
-    return (
-      <div>
-        <h1>History</h1>
-        {historyToRender}
-      </div>
-      
-    );
+    if (this.state.redirect) {
+      return (<Redirect to="/login"/>);
+    } else {
+      return (
+        <div>
+          <h1>History</h1>
+          {historyToRender}
+        </div>
+        
+      );
+    }
   }
 }
 

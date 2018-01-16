@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import './Login.css';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom'
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      redirect: localStorage.getItem("token")
     }
   }
 
@@ -22,6 +34,7 @@ class Login extends Component {
   handleSuccess(response) {
     var token = response.data.token;
     localStorage.setItem("token", token);
+    this.setState({redirect: true});
   }
 
   handleError(error) {
@@ -44,25 +57,35 @@ class Login extends Component {
   }
 
   render() {
+
     return (
-      <div>
-        <input type="text" id="username" placeholder="username" 
-          onChange={ this.handleChangeUsername.bind(this) } 
-          value={this.state.username}
-        />
-        <br />
-        <input type="password" id="password" placeholder="password" 
-          onChange={ this.handleChangePassword.bind(this) } 
-          value={this.state.password}
-        />
-        <br /><br />
-        <button
-          onClick={ this.handleSubmit.bind(this) } 
-        >Login</button>
-      </div>
-      
-    );
-  }
+        <div className="loginPage">
+          { this.state.redirect &&
+            <Redirect to="/history"/>
+          }
+          <Paper className="myPaper" zDepth={2}>
+          <TextField
+            onChange={ this.handleChangeUsername.bind(this) } 
+            value={this.state.username}
+            hintText="Username"
+            className="textInput"
+          />
+          <TextField
+            onChange={ this.handleChangePassword.bind(this) } 
+            value={this.state.password}
+            hintText="Password"
+            type="password"
+            className="textInput"
+          />
+          <br />
+          <div className="btnFooter">
+            <RaisedButton label="Login" primary={true} onClick={ this.handleSubmit.bind(this) }/>
+          </div>
+          </Paper>
+        </div>
+        
+      );
+    }
 }
 
 export default Login;

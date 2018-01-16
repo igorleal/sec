@@ -1,37 +1,60 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './routes/login/Login';
+import Signup from './routes/signup/Signup';
 import History from './routes/history/History';
 import {
   BrowserRouter as Router,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+
 
 class App extends Component {
-  
-  render() {
-    return (
-      <div className="App">
-        <h1>App</h1>
-        <Router>
-          <div>
-            <Link to="/login">Login</Link>
-            <Link to="/history">History</Link>
+  constructor(props) {
+    super(props);
+    this.state = {
+      logged: localStorage.getItem("token")
+    }
+  }
 
-            <Route exact path="/" component={Home}/>
-            <Route path="/login" component={Login}/>
-            <Route path="/history" component={History}/>
-          </div>
-        </Router>
-      </div>
+  handleLogout() {
+    localStorage.removeItem("token");
+  }
+
+  static muiName = 'FlatButton';
+
+  render() {
+  
+    return (
+      <div>
+          <MuiThemeProvider>
+          <AppBar
+              title={<span>My Security App</span>}
+              iconElementLeft={<div />}
+              iconElementRight={this.state.logged ? <FlatButton label="Logout" /> : ""}
+            />
+
+
+            <Router>
+              <div>
+                <Route exact path="/" component={Login}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/history" component={History}/>
+                <Route path="/signup" component={Signup}/>
+              </div>
+            </Router>
+
+
+              </MuiThemeProvider>
+        </div>
+      
     );
   }
 }
 
 export default App;
-
-const Home = () => (
-  <div>
-  </div>
-)
