@@ -12,6 +12,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
+import Home from './routes/home/Home'
 
 
 class App extends Component {
@@ -36,13 +37,12 @@ class App extends Component {
           <AppBar
               title={<span>My Security App</span>}
               iconElementLeft={<div />}
-              iconElementRight={this.state.logged ? <FlatButton label="Logout" /> : ""}
+              iconElementRight={this.state.logged ? <FlatButton onClick={ this.handleLogout.bind(this)} label="Logout" /> : ""}
             />
-
 
             <Router>
               <div>
-                <Route exact path="/" component={Login}/>
+                <Route exact path="/" component={Home}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/history" component={History}/>
                 <Route path="/signup" component={Signup}/>

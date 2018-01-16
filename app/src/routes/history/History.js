@@ -9,6 +9,9 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom'
+import {List, ListItem} from 'material-ui/List';
+import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
 
 class History extends Component {
   constructor(props) {
@@ -60,26 +63,28 @@ class History extends Component {
         <div>
             {this.state.history.map(function(it) {
                 return ( 
-                <div>
+                <ListItem>
                     <Timestamp time={ it / 1000 } format='full' /> (<Timestamp time={ it / 1000 } />)<br />
-                </div>
+                </ListItem>
                 );
             })}
-            <button
-            onClick={ this.handleClearHistory.bind(this) } 
-            >Clear History</button>
+            <div className="btnFooter">
+            <FlatButton secondary="true" label="Clear History" onClick={ this.handleClearHistory.bind(this) }/>
+            </div>
         </div>
-    ) : "No login history"
+    ) : (<p className="emptyList">No login history</p>)
 
     if (this.state.redirect) {
-      return (<Redirect to="/login"/>);
+      return (<Redirect to="/"/>);
     } else {
       return (
-        <div>
-          <h1>History</h1>
-          {historyToRender}
+        <div className="historyPage">
+        <Paper zDepth={5} className="myPaper">
+          <List>
+              {historyToRender}
+          </List>
+          </Paper>
         </div>
-        
       );
     }
   }

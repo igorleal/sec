@@ -8,6 +8,10 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom'
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 
 class Signup extends Component {
   constructor(props) {
@@ -65,38 +69,44 @@ class Signup extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return (<Redirect to="/history"/>);
-    } else {
       return (
-        <div>
-          <input type="text" id="username" placeholder="username" 
-            onChange={ this.handleChangeUsername.bind(this) } 
-            value={this.state.username}
-          />
-          <br />
-          <input type="password" id="password" placeholder="password" 
-            onChange={ this.handleChangePassword.bind(this) } 
-            value={this.state.password}
-          />
-          <br />
-          <input type="text" id="firstname" placeholder="firstname" 
+        <div className="signupPage">
+          { this.state.redirect &&
+            <Redirect to="/history"/>
+          }
+          <Paper className="myPaper" zDepth={2}>
+          <TextField
             onChange={ this.handleChangeFirstname.bind(this) } 
             value={this.state.firstName}
+            hintText="First Name"
+            className="textInput"
           />
-          <br />
-          <input type="text" id="lastname" placeholder="lastname" 
+          <TextField
             onChange={ this.handleChangeLastname.bind(this) } 
             value={this.state.lastName}
+            hintText="Last Name"
+            className="textInput"
           />
-          <br /><br />
-          <button
-            onClick={ this.handleSubmit.bind(this) } 
-          >Login</button>
+          <TextField
+            onChange={ this.handleChangeUsername.bind(this) } 
+            value={this.state.username}
+            hintText="Username"
+            className="textInput"
+          />
+          <TextField
+            onChange={ this.handleChangePassword.bind(this) } 
+            value={this.state.password}
+            hintText="Password"
+            type="password"
+            className="textInput"
+          />
+          <br />
+          <div className="btnFooter">
+            <RaisedButton label="Signup" primary={true} onClick={ this.handleSubmit.bind(this) }/>
+          </div>
+          </Paper>
         </div>
-        
       );
-    }
   }
 }
 

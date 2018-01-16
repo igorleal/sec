@@ -83,7 +83,6 @@ class Login extends Component {
           </div>
           </Paper>
         </div>
-        
       );
     }
 }
