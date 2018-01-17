@@ -20,7 +20,8 @@ class Signup extends Component {
       password: "",
       firstName: "",
       lastName: "",
-      redirect: localStorage.getItem("token")
+      redirect: localStorage.getItem("token"),
+      error: ""
     }
   }
 
@@ -47,12 +48,17 @@ class Signup extends Component {
   }
 
   handleError(error) {
-    alert("Error signing up");
     console.log(error);
+    this.setState({error: error.response.data.error || error.message});
   }
 
   handleSubmit() {
     const {username, password, firstName, lastName} = this.state;
+
+    if (!username || !password || !firstName || !lastName) {
+      this.setState({error: "All fields are required"});
+      return;
+    }
 
     var instance = axios.create({
       baseURL: 'http://localhost:8080/',
@@ -74,6 +80,7 @@ class Signup extends Component {
             <Redirect to="/history"/>
           }
           <Paper className="myPaper" zDepth={5}>
+          <p className="errorMessage">{this.state.error}</p>
           <TextField
             onChange={ this.handleChangeFirstname.bind(this) } 
             value={this.state.firstName}

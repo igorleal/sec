@@ -18,7 +18,8 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirect: localStorage.getItem("token")
+      redirect: localStorage.getItem("token"),
+      error: ""
     }
   }
 
@@ -37,12 +38,16 @@ class Login extends Component {
   }
 
   handleError(error) {
-    alert("Error logging in");
-    console.log(error);
+    this.setState({error: error.response.data.message || error.message});
   }
 
   handleSubmit() {
     const {username, password} = this.state;
+
+    if (!username || !password) {
+      this.setState({error: "Username and password are required"});
+      return;
+    }
 
     var instance = axios.create({
       baseURL: 'http://localhost:8080/',
@@ -61,6 +66,7 @@ class Login extends Component {
         <div className="loginPage">
           { this.state.redirect && <Redirect to="/history"/> }
           <Paper className="myPaper" zDepth={5}>
+          <p className="errorMessage">{this.state.error}</p>
           <TextField
             onChange={ this.handleChangeUsername.bind(this) } 
             value={this.state.username}

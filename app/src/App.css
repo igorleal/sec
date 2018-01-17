@@ -53,3 +53,12 @@
   font-weight: bold;
   margin: 20%;
 }
+
+.errorMessage {
+  margin-left: 20px;
+  padding-top: 10%;
+  position: relative;
+  color: red;
+  margin-right: 20px;
+  font-size: 14px;
+}
