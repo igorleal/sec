@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Signup.css';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -74,7 +73,7 @@ class Signup extends Component {
           { this.state.redirect &&
             <Redirect to="/history"/>
           }
-          <Paper className="myPaper" zDepth={2}>
+          <Paper className="myPaper" zDepth={5}>
           <TextField
             onChange={ this.handleChangeFirstname.bind(this) } 
             value={this.state.firstName}

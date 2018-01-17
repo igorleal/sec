@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Login.css';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -34,7 +33,7 @@ class Login extends Component {
   handleSuccess(response) {
     var token = response.data.token;
     localStorage.setItem("token", token);
-    this.setState({redirect: true});
+    this.setState({redirect: token});
   }
 
   handleError(error) {
@@ -60,10 +59,8 @@ class Login extends Component {
 
     return (
         <div className="loginPage">
-          { this.state.redirect &&
-            <Redirect to="/history"/>
-          }
-          <Paper className="myPaper" zDepth={2}>
+          { this.state.redirect && <Redirect to="/history"/> }
+          <Paper className="myPaper" zDepth={5}>
           <TextField
             onChange={ this.handleChangeUsername.bind(this) } 
             value={this.state.username}

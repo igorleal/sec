@@ -3,28 +3,53 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.myPaper {
+  min-height: 150px;
+  width: 100%;
+  margin-top: 20px;
+  text-align: 'center';
+  display: 'inline-block'
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.textInput {
+  margin-left: 20px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.btnFooter {
+  text-align: center;
+  padding: 5%;
 }
 
-.App-intro {
-  font-size: large;
+.loginPage {
+  margin: 0 auto;
+  width: 300px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.signupPage {
+  margin: 0 auto;
+  width: 300px;
 }
 
+.homePage {
+  margin: 0 auto;
+  width: 300px;
+}
+
+.historyPage {
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
+}
+
+
+.myTab {
+  width: 100%;
+  margin-top: 20px;
+  text-align: 'center';
+  display: 'inline-block'
+}
+
+.emptyList {
+  font-weight: bold;
+  margin: 20%;
+}
