@@ -1,7 +1,6 @@
-package com.example.demo.dao;
+package com.igor.sec.dao;
 
-import com.example.demo.entity.LoginHistory;
-import com.example.demo.entity.User;
+import com.igor.sec.entity.LoginHistory;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
@@ -11,7 +10,6 @@ import java.util.List;
 public interface LoginHistoryDAO extends CrudRepository<LoginHistory, Long> {
 
     List<LoginHistory> findTop5ByUserIdOrderByDateDesc(Long userId);
-
     List<LoginHistory> findByUserId(Long userId);
 
 }

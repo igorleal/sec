@@ -1,4 +1,4 @@
-package com.example.demo.vo;
+package com.igor.sec.vo;
 
 import java.io.Serializable;
 import java.util.Date;

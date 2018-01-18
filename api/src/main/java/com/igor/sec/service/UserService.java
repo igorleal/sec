@@ -1,12 +1,12 @@
-package com.example.demo.service;
+package com.igor.sec.service;
 
-import com.example.demo.dao.LoginHistoryDAO;
-import com.example.demo.dao.UserDAO;
-import com.example.demo.entity.LoginHistory;
-import com.example.demo.entity.User;
-import com.example.demo.exception.MySecException;
-import com.example.demo.vo.UserRequestVO;
-import com.example.demo.vo.UserResponseVO;
+import com.igor.sec.dao.LoginHistoryDAO;
+import com.igor.sec.dao.UserDAO;
+import com.igor.sec.entity.LoginHistory;
+import com.igor.sec.entity.User;
+import com.igor.sec.exception.MySecException;
+import com.igor.sec.vo.UserRequestVO;
+import com.igor.sec.vo.UserResponseVO;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

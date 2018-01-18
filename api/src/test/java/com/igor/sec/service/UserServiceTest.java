@@ -1,13 +1,11 @@
-package com.example.demo.service;
+package com.igor.sec.service;
 
-import com.example.demo.AppApplication;
-import com.example.demo.dao.UserDAO;
-import com.example.demo.exception.MySecException;
-import com.example.demo.vo.UserRequestVO;
-import com.example.demo.vo.UserResponseVO;
+import com.igor.sec.MySecApplication;
+import com.igor.sec.exception.MySecException;
+import com.igor.sec.service.UserService;
+import com.igor.sec.vo.UserRequestVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.*;
 
 @Transactional
-@SpringBootTest(classes = AppApplication.class)
+@SpringBootTest(classes = MySecApplication.class)
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
 

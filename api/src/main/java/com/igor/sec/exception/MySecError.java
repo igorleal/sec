@@ -1,6 +1,5 @@
-package com.example.demo.exception;
+package com.igor.sec.exception;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.http.HttpStatus;
 
 public class MySecError {

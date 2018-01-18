@@ -1,6 +1,6 @@
-package com.example.demo.security;
+package com.igor.sec.security;
 
-import com.example.demo.service.UserService;
+import com.igor.sec.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/login/history").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTLoginFilter("/login", authenticationManager(), userService),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTSignupFilter("/signup", authenticationManager(), userService),

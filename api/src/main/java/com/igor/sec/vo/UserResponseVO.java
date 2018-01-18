@@ -1,4 +1,4 @@
-package com.example.demo.vo;
+package com.igor.sec.vo;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

@@ -1,16 +1,16 @@
-package com.example.demo.security;
+package com.igor.sec.security;
 
-import com.example.demo.exception.MySecError;
-import com.example.demo.exception.MySecException;
-import com.example.demo.service.UserService;
-import com.example.demo.vo.UserRequestVO;
+import com.igor.sec.entity.User;
+import com.igor.sec.exception.MySecError;
+import com.igor.sec.exception.MySecException;
+import com.igor.sec.service.UserService;
+import com.igor.sec.vo.UserRequestVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -34,13 +34,11 @@ public class JWTSignupFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException {
 
-        response.setHeader("Access-Control-Allow-Origin", "*");
-
         UserRequestVO userRequest = new ObjectMapper()
                 .readValue(request.getInputStream(), UserRequestVO.class);
 
         try {
-            com.example.demo.entity.User user = userService.signup(userRequest);
+            User user = userService.signup(userRequest);
             Authentication auth = getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(
                             user.getUsername(),

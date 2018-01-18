@@ -1,8 +1,8 @@
-package com.example.demo.security;
+package com.igor.sec.security;
 
-import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
-import com.example.demo.vo.TokenResponseVO;
+import com.igor.sec.entity.User;
+import com.igor.sec.service.UserService;
+import com.igor.sec.vo.TokenResponseVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

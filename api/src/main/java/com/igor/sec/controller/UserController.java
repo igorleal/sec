@@ -1,8 +1,8 @@
-package com.example.demo.controller;
+package com.igor.sec.controller;
 
-import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
-import com.example.demo.vo.UserResponseVO;
+import com.igor.sec.entity.User;
+import com.igor.sec.service.UserService;
+import com.igor.sec.vo.UserResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 

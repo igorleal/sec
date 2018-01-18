@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.igor.sec.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
