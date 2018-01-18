@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
+import {makeSignupCall} from './../core/ApiCall';
 
 class Signup extends Component {
   constructor(props) {
@@ -60,16 +53,8 @@ class Signup extends Component {
       return;
     }
 
-    var instance = axios.create({
-      baseURL: 'http://localhost:8080/',
-    });
-
-    instance.post('signup', {
-      username,
-      password,
-      firstName, 
-      lastName
-    }).then(response => this.handleSuccess(response))
+    makeSignupCall(firstName, lastName, username, password)
+    .then(response => this.handleSuccess(response))
     .catch(error => this.handleError(error));
   }
 
@@ -79,7 +64,7 @@ class Signup extends Component {
           { this.state.redirect &&
             <Redirect to="/history"/>
           }
-          <Paper className="myPaper" zDepth={5}>
+          <Paper className="myPaper" zDepth={1}>
           <p className="errorMessage">{this.state.error}</p>
           <TextField
             onChange={ this.handleChangeFirstname.bind(this) } 

@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
+import {makeLoginCall} from './../core/ApiCall';
 
 class Login extends Component {
   constructor(props) {
@@ -38,6 +31,7 @@ class Login extends Component {
   }
 
   handleError(error) {
+    console.log(error);
     this.setState({error: error.response.data.message || error.message});
   }
 
@@ -49,14 +43,8 @@ class Login extends Component {
       return;
     }
 
-    var instance = axios.create({
-      baseURL: 'http://localhost:8080/',
-    });
-
-    instance.post('login', {
-      username,
-      password
-    }).then(response => this.handleSuccess(response))
+    makeLoginCall(username, password)
+    .then(response => this.handleSuccess(response))
     .catch(error => this.handleError(error));
   }
 
@@ -65,7 +53,7 @@ class Login extends Component {
     return (
         <div className="loginPage">
           { this.state.redirect && <Redirect to="/history"/> }
-          <Paper className="myPaper" zDepth={5}>
+          <Paper className="myPaper" zDepth={1}>
           <p className="errorMessage">{this.state.error}</p>
           <TextField
             onChange={ this.handleChangeUsername.bind(this) } 

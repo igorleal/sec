@@ -6,7 +6,6 @@
 .myPaper {
   min-height: 150px;
   width: 100%;
-  margin-top: 20px;
   text-align: 'center';
   display: 'inline-block'
 }
@@ -18,16 +17,6 @@
 .btnFooter {
   text-align: center;
   padding: 5%;
-}
-
-.loginPage {
-  margin: 0 auto;
-  width: 300px;
-}
-
-.signupPage {
-  margin: 0 auto;
-  width: 300px;
 }
 
 .homePage {
@@ -50,7 +39,6 @@
 }
 
 .emptyList {
-  font-weight: bold;
   margin: 20%;
 }
 
@@ -61,4 +49,13 @@
   color: red;
   margin-right: 20px;
   font-size: 14px;
+}
+
+h2 {
+  padding-top: 5%;
+}
+
+.historyIndex {
+  font-size: 14px;
+  font-weight: bold;
 }
