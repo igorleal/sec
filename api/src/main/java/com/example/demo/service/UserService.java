@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public List<Date> findLoginHistory(User user) {
-        return loginHistoryDAO.findByUserIdOrderByDateDesc(user.getId())
+        return loginHistoryDAO.findTop5ByUserIdOrderByDateDesc(user.getId())
                 .stream().map(LoginHistory::getDate)
                 .collect(Collectors.toList());
     }
@@ -51,16 +51,16 @@ public class UserService {
     public User signup(UserRequestVO request) throws MySecException {
 
         if (!isRquestValid(request)) {
-            throw new MySecException(HttpStatus.BAD_REQUEST, "All fields are required");
+            throw new MySecException(HttpStatus.BAD_REQUEST, "All fields are required.");
         }
 
         if (!isPasswordValid(request.getPassword())) {
-            throw new MySecException(HttpStatus.BAD_REQUEST, "Password invalid.");
+            throw new MySecException(HttpStatus.BAD_REQUEST, "Invalid password. It must contain at least 8 characters, including one letter and one digit.");
         }
 
         User existing = findUserByUsername(request.getUsername().trim());
         if (existing != null) {
-            throw new MySecException(HttpStatus.BAD_REQUEST, "Username already exists");
+            throw new MySecException(HttpStatus.BAD_REQUEST, "Username already registered.");
         }
         User user = new User();
         String encrypted = DigestUtils.sha1Hex(request.getPassword());
@@ -86,6 +86,6 @@ public class UserService {
     }
 
     public void deleteLoginHistory(User user) {
-        loginHistoryDAO.delete(loginHistoryDAO.findByUserIdOrderByDateDesc(user.getId()));
+        loginHistoryDAO.delete(loginHistoryDAO.findByUserId(user.getId()));
     }
 }

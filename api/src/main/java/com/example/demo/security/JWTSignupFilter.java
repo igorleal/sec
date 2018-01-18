@@ -5,10 +5,12 @@ import com.example.demo.exception.MySecException;
 import com.example.demo.service.UserService;
 import com.example.demo.vo.UserRequestVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -23,7 +25,7 @@ public class JWTSignupFilter extends AbstractAuthenticationProcessingFilter {
     private UserService userService;
 
     protected JWTSignupFilter(String url, AuthenticationManager authManager, UserService userService) {
-        super(new AntPathRequestMatcher(url));
+        super(new AntPathRequestMatcher(url, HttpMethod.POST.name()));
         setAuthenticationManager(authManager);
         this.userService = userService;
     }
@@ -31,6 +33,8 @@ public class JWTSignupFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException {
+
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
         UserRequestVO userRequest = new ObjectMapper()
                 .readValue(request.getInputStream(), UserRequestVO.class);
@@ -44,6 +48,10 @@ public class JWTSignupFilter extends AbstractAuthenticationProcessingFilter {
                             Collections.emptyList()
                     )
             );
+
+            if (auth != null && auth.isAuthenticated()) {
+                userService.registerLogin(user.getUsername());
+            }
 
             return auth;
         } catch (MySecException e) {
