@@ -31,8 +31,9 @@ public class UserServiceTest {
         user.setId(1L);
         List<Date> history = userService.findLoginHistory(user);
         assertNotNull(history);
-        assertEquals(1, history.size());
-        assertEquals(new Date(1483236000000L), history.get(0));
+        assertEquals(5, history.size());
+        assertEquals(new Date(1483668000000L), history.get(0));
+        assertEquals(new Date(1483322400000L), history.get(4));
     }
 
     @Test
