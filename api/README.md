@@ -44,4 +44,4 @@ mvn spring-boot:run
 ```
 
 * All APIs are available on http://localhost:8080
-* Run the [https://github.com/igorleal/sec/tree/master/app](client) to use all APIs
+* Run the [client](https://github.com/igorleal/sec/tree/master/app) to use all APIs
