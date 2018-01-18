@@ -1,6 +1,7 @@
 package com.igor.sec.service;
 
 import com.igor.sec.MySecApplication;
+import com.igor.sec.entity.User;
 import com.igor.sec.exception.MySecException;
 import com.igor.sec.service.UserService;
 import com.igor.sec.vo.UserRequestVO;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -23,12 +27,17 @@ public class UserServiceTest {
 
     @Test
     public void findLoginHistory() {
-        assertTrue(true);
+        User user = new User();
+        user.setId(1L);
+        List<Date> history = userService.findLoginHistory(user);
+        assertNotNull(history);
+        assertEquals(1, history.size());
+        assertEquals(new Date(1483236000000L), history.get(0));
     }
 
     @Test
     public void findById() {
-        assertTrue(true);
+        assertTrue(userService.findById(1L).getUsername().equals("igor"));
     }
 
     @Test(expected = MySecException.class)
